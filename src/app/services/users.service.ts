@@ -9,16 +9,20 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UsersService {
 
-  user: any
+  displayName: any
+  email: any
+  phtoURL: any
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth, private toastr:ToastrService) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth, private toastr:ToastrService,) { }
 
   registrarConGoogle(){
     this.afAuth.signInWithPopup(new GoogleAuthProvider()).then((result)=>{
       console.log('Iniciar sesión con Google exitoso:', result);
       this.router.navigate(['/dashboard']);
-      this.user = result.user?.displayName
-      console.log(this.user)
+      this.displayName = result.user?.displayName
+      this.email = result.user?.email
+      this.phtoURL = result.user?.photoURL
+      console.log(this.displayName, this.email, this.phtoURL)
     }).catch((error) => {
       console.error('Error Inicio de sesión con Google:', error);
     });

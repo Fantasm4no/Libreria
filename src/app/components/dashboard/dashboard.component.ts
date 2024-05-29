@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit{
   
   constructor(private bookService: BookserviceService, private fb: FormBuilder,
     private userService: UsersService,private autetication:AutecticationService){
-      this.usuario = this.userService.user
+      this.usuario = this.userService.displayName
     this.searchForm = this.fb.group({
       query: ['']
     });
