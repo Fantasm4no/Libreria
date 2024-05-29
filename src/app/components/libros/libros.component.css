@@ -37,3 +37,11 @@
     height: 85px;
     padding: 5px 10%;
 }
+
+.header .nav_links a{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 700;
+    color: #fff;
+    text-decoration: none;
+    list-style: none;
+}
