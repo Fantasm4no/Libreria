@@ -1,8 +1,9 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RecuperarPswrdComponent } from './components/recuperar-pswrd/recuperar-pswrd.component';
+import { NgModule } from '@angular/core';
 
 
 export const routes: Routes = [
@@ -11,5 +12,7 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'recuperar-pswrd', component: RecuperarPswrdComponent},
-    {path: '**', redirectTo: 'login', pathMatch: 'full'}
+    {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
+
+

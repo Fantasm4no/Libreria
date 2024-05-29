@@ -4,6 +4,7 @@ import { BookserviceService } from '../../services/bookservice.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
+import { AutecticationService } from '../../services/autectication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit{
   email: any
   
   constructor(private bookService: BookserviceService, private fb: FormBuilder,
-    private userService: UsersService){
+    private userService: UsersService,private autetication:AutecticationService){
       this.usuario = this.userService.user
       this.email = this.userService.email
     this.searchForm = this.fb.group({
@@ -40,4 +41,9 @@ export class DashboardComponent implements OnInit{
   getCoverUrl(cover_i: number) {
     return cover_i ? `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg` : 'default-cover.jpg';
   }
+
+  logout() {
+    this.autetication.logout();
+  }
+
 }
