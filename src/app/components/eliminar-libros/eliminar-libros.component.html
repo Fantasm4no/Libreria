@@ -1,0 +1,22 @@
+<div>
+    <header class="header">
+        <h1><img class="ups" src="https://www.ups.edu.ec/documents/20121/77326/Isotipo+Original.png/48fb2ada-b4e7-09df-b45a-884cda62cc9b?version=1.0&t=1620746533255&imagePreview=1" alt="Logo Ups">Biblioteca UPS</h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a routerLink="/anadir">Añadir Libro</a></li>
+                <li><a routerLink="/actualizar">Actualizar Libro</a></li>
+                <li><a routerLink="#">Eliminar Libro</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div>
+    <ul>
+        @for (book of books; track book.id) {
+            <li><strong>Titulo: </strong>{{book.title}} :: <span> <strong>Genero: </strong>{{book.genre}}</span> :: <span><strong>Autor: </strong>{{book.author}}</span><br>
+            <span> <strong>Descripcion: </strong>{{book.description}}</span></li>
+            <button (click)="borrar(book.id)">Borrar</button><br><br>
+        }
+    </ul>
+</div>

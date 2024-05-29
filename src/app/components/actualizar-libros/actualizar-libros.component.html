@@ -1,0 +1,37 @@
+<div>
+    <header class="header">
+        <h1><img class="ups" src="https://www.ups.edu.ec/documents/20121/77326/Isotipo+Original.png/48fb2ada-b4e7-09df-b45a-884cda62cc9b?version=1.0&t=1620746533255&imagePreview=1" alt="Logo Ups">Biblioteca UPS</h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a routerLink="/anadir">Añadir Libro</a></li>
+                <li><a routerLink="#">Actualizar Libro</a></li>
+                <li><a routerLink="/eliminar">Eliminar Libro</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="contenedor">
+    <div class="tarjeta">
+        <h2 class="centrar-texto mb-4">Actualizar Libro</h2>
+        <form>
+        <div class="grupo-form mb-3">
+            <label for="titulo">Título:</label>
+            <input type="text" class="campo-formulario" id="titulo" name="titulo" placeholder="Titulo"/>
+        </div>
+        <div class="grupo-form mb-3">
+            <label for="autor">Autor:</label>
+            <input type="text" class="campo-formulario" id="autor" name="autor" placeholder="Autor">
+        </div>
+        <div class="grupo-form mb-3">
+            <label for="genero">Género:</label>
+            <input type="text" class="campo-formulario" id="genero" name="genero" placeholder="Genero">
+        </div>
+        <div class="grupo-form mb-4">
+            <label for="descripcion">Descripción:</label>
+            <textarea class="campo-formulario" id="descripcion" name="descripcion" rows="3" placeholder="Descripcion"></textarea>
+        </div>
+        <button type="submit" class="btn-primario">Actualizar Libro</button>
+        </form>
+    </div>
+</div>
