@@ -39,7 +39,12 @@ export class LoginComponent {
     const password = this.loginUsuario.value.password;
     this.afAuth.signInWithEmailAndPassword(email,password).then((user)=> {
       console.log(user);
-      this.router.navigate(['/dashboard']);
+      if(user.user?.emailVerified){
+        this.usersService.email = user.user.email
+        this.router.navigate(['dashboard'])
+      }else{
+        this.router.navigate(['/verificar'])
+      };
     }).catch((error) => {
       this.toastr.error(this.errorFirebase.codeError(error.code),'  Error');
     }) 

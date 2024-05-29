@@ -9,6 +9,7 @@ import { ActualizarLibrosComponent } from './components/actualizar-libros/actual
 import { EliminarLibrosComponent } from './components/eliminar-libros/eliminar-libros.component';
 import { LibrosComponent } from './components/libros/libros.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { VerificarComponent } from './components/verificar/verificar.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {path: 'actualizar', component: ActualizarLibrosComponent},
     {path: 'eliminar', component: EliminarLibrosComponent},
     {path: 'mi-perfil', component: MiPerfilComponent},
+    {path: 'verificar', component: VerificarComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
