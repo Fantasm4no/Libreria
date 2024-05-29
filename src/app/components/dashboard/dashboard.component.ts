@@ -18,12 +18,10 @@ export class DashboardComponent implements OnInit{
   books: any[] = [];
   searchForm: FormGroup;
   usuario: any
-  email: any
   
   constructor(private bookService: BookserviceService, private fb: FormBuilder,
     private userService: UsersService,private autetication:AutecticationService){
       this.usuario = this.userService.user
-      this.email = this.userService.email
     this.searchForm = this.fb.group({
       query: ['']
     });

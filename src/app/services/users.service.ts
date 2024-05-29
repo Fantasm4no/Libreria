@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 export class UsersService {
 
   user: any
-  email: any
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth, private toastr:ToastrService) { }
 
@@ -19,7 +18,6 @@ export class UsersService {
       console.log('Iniciar sesión con Google exitoso:', result);
       this.router.navigate(['/dashboard']);
       this.user = result.user?.displayName
-      this.email = result.user?.email
       console.log(this.user)
     }).catch((error) => {
       console.error('Error Inicio de sesión con Google:', error);
