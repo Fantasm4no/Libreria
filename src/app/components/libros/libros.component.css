@@ -23,3 +23,17 @@
     border-radius: 32px;
     transform: scale(1.2);
 }
+
+.ups{
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.header{
+    background-color: #b17e3b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}

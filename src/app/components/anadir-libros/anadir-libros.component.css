@@ -66,3 +66,42 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+.header h1:hover{
+    color: #3b8491fb;
+    cursor: pointer;
+}
+
+.header{
+    background-color: #b17e3b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}
+
+.header .nav_links{
+    list-style: none;
+}
+
+.header .nav_links li{
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.header .nav_links li:hover{
+    transform: scale(1.1);
+}
+
+.header .nav_links a{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.ups{
+    height: 50px;
+    margin-bottom: 10px;
+}
