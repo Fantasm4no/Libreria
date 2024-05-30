@@ -9,6 +9,7 @@ import { EliminarLibrosComponent } from './components/eliminar-libros/eliminar-l
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { VerificarComponent } from './components/verificar/verificar.component';
 import { adminGuard } from './auth/admin.guard';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,7 +21,8 @@ export const routes: Routes = [
   { path: 'actualizar', component: ActualizarLibrosComponent, canActivate: [adminGuard] },
   { path: 'eliminar', component: EliminarLibrosComponent, canActivate: [adminGuard] },
   { path: 'mi-perfil', component: MiPerfilComponent },
-  { path: 'verificar', component: VerificarComponent }
+  { path: 'verificar', component: VerificarComponent },
+  {path: 'usuarios',component:AdminUsersComponent}
 ];
 
 

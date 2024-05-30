@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider,  } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Users } from '../domain/user';
 import { Firestore, addDoc } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+
+export interface User {
+  uid: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +44,12 @@ export class UsersService {
   addUsers(user: Users) {
     return addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user));
   }
+
+  getUsers(): Observable<User[]> {
+    return this.afs.collection<User>('users').valueChanges({ idField: 'uid' });
+  }
+
+  
 
 
 }
