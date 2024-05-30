@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
 
 export interface User {
   uid: string;
-  name: string;
+  nombre: string;
   email: string;
   role: string;
+  editing?: boolean;
 }
 
 
@@ -49,7 +50,9 @@ export class UsersService {
     return this.afs.collection<User>('users').valueChanges({ idField: 'uid' });
   }
 
-  
+  updateUserDetails(uid: string, user: User): Promise<void> {
+    return this.afs.collection('users').doc(uid).update(user);
+  }
 
 
 }
