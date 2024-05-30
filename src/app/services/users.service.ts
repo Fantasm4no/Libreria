@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Users } from '../domain/user';
 import { Firestore, addDoc } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class UsersService {
   registrarConGoogle(){
     this.afAuth.signInWithPopup(new GoogleAuthProvider()).then((result)=>{
       console.log('Iniciar sesión con Google exitoso:', result);
-      this.router.navigate(['/dashboard'])
       this.displayName = result.user?.displayName
       this.email = result.user?.email
       this.phtoURL = result.user?.photoURL
       console.log(this.displayName, this.email, this.phtoURL)
+      this.router.navigate(['/dashboard'])
     }).catch((error) => {
       console.error('Error Inicio de sesión con Google:', error);
     });
@@ -33,6 +33,14 @@ export class UsersService {
   
   addUsers(user: Users) {
     return addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user));
+  }
+
+  getUsers(){
+    return getDocs(query(collection(this.firestore, 'usuarios')))
+  }
+
+  deleteUsers(userId: string){
+    return deleteDoc(doc(this.firestore, 'usuarios', userId));
   }
 
 }
