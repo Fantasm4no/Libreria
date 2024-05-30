@@ -1,42 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { User } from '../../domain/roles'; // Importa la interfaz User desde roles.ts
 import { FormsModule } from '@angular/forms';
-import { Users } from '../../domain/user';
-import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-mi-perfil',
-  standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule],
+  
   templateUrl: './mi-perfil.component.html',
-  styleUrl: './mi-perfil.component.css'
+  styleUrls: ['./mi-perfil.component.css'],
+  standalone: true,
+  imports: [FormsModule,RouterLink]
 })
 export class MiPerfilComponent implements OnInit {
 
-  user: Users = new Users();
-  users: any;
-  displayName: string;
-  photoURL: string;
-  email: string;
-  psswd:string
-  boolean: any
+  user: User = { uid: '', nombre: '', email: '', role: '', phone: '', biography: '' }; // Inicializa con todas las propiedades de User
 
-  constructor(private userService: UsersService) {
-    this.displayName = this.userService.displayName;
-    this.photoURL = this.userService.phtoURL;
-    this.email = this.userService.email;
-    this.psswd = this.userService.password
-  }
+  constructor(private userService: UsersService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.userService.getUserss().then(data => {
-      this.users = data.docs.map((doc: any) => {
+      const userData = data.docs.map((doc: any) => {
         return {
           id: doc.id,
           ...doc.data()
         };
-      });
+      })[0]; // Suponiendo que solo hay un usuario por ahora
+      this.user = {
+        uid: userData.uid,
+        nombre: userData.nombre,
+        email: userData.email,
+        role: userData.role,
+        phone: userData.phone, // Agregar propiedad
+        biography: userData.biography // Agregar propiedad
+      };
     });
   }
 
@@ -47,30 +45,31 @@ export class MiPerfilComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         const photoURL = reader.result as string;
-        if (photoURL) {
-          this.user.photoURL = photoURL;
-        }
       };
     }
   }
 
-  anadir(){
-      this.userService.addUsers(this.user)
-        .then(() => {
-          console.log('Usuario agregado correctamente a Cloud Firestore');
-        })
-        .catch(error => {
-          console.error('Error al agregar usuario a Cloud Firestore:', error);
-        });
-        this.boolean = this.userService.verificar()
+  guardarCambios() {
+    this.userService.updateUserDetails(this.user.uid, this.user)
+      .then(() => {
+        console.log('Usuario actualizado correctamente en la base de datos');
+      })
+      .catch(error => {
+        console.error('Error al actualizar usuario en la base de datos:', error);
+      });
   }
 
-  borrar(userId : string){
-    this.userService.deleteUsers(userId).then(() => {
+  borrarUsuario() {
+    this.userService.deleteUsers(this.user.uid).then(() => {
       console.log('Usuario eliminado exitosamente');
     }).catch(error => {
-      console.log('Error al eliminar usuario:', error);
-    })
+      console.error('Error al eliminar usuario:', error);
+    });
   }
-  
 }
+
+
+
+
+
+

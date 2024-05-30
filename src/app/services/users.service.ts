@@ -15,6 +15,8 @@ export interface User {
   email: string;
   role: string;
   editing?: boolean;
+  phone: string;
+  biography: string;
 }
 
 
