@@ -7,7 +7,6 @@ import { UsersService } from '../../services/users.service';
 import { AutecticationService } from '../../services/autectication.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,19 +19,18 @@ export class DashboardComponent implements OnInit{
 
   books: any[] = [];
   searchForm: FormGroup;
-  usuario: any
+  usuario: any;
   isAdmin = false;
   booksFromApi: any[] = [];
   showSearchResults: boolean = false;
+  isSearchPerformed: boolean = false; // Nueva bandera para controlar la visibilidad
 
-  constructor(private router: Router,private bookService: BookserviceService, private fb: FormBuilder,
-    private userService: UsersService,private autetication:AutecticationService,private afAuth: AngularFireAuth, private afs: AngularFirestore){
-      this.usuario = this.userService.email
-    this.searchForm = this.fb.group({
-      query: ['']
-    });
-
-    
+  constructor(private router: Router, private bookService: BookserviceService, private fb: FormBuilder,
+    private userService: UsersService, private autetication: AutecticationService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+      this.usuario = this.userService.email;
+      this.searchForm = this.fb.group({
+        query: ['']
+      });
   }
 
   ngOnInit(): void {
@@ -52,8 +50,8 @@ export class DashboardComponent implements OnInit{
           id: doc.id,
           ...doc.data()
         }
-      })
-    })
+      });
+    });
 
     this.bookService.getBooksFromOpenLibrary().subscribe((data: any) => {
       this.booksFromApi = data.works.map((work: any) => {
@@ -72,8 +70,9 @@ export class DashboardComponent implements OnInit{
     const query = this.searchForm.value.query;
     this.bookService.searchBooks(query).subscribe((data: any) => {
       this.books = data.docs;
+      this.isSearchPerformed = true;
+      this.showSearchResults = true;
     });
-    this.showSearchResults = true;
   }
 
   getCoverUrl(cover_i: number) {
@@ -83,7 +82,4 @@ export class DashboardComponent implements OnInit{
   logout() {
     this.autetication.logout();
   }
-
-  
-
 }

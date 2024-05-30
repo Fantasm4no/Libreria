@@ -34,8 +34,23 @@
               <input formControlName="query" placeholder="Buscar libros">
               <button type="submit">Buscar</button>
             </form>
-            <div *ngIf="showSearchResults" class="books-container">
-              <div class="book" *ngFor="let book of books | slice:0:8">
+          
+            <!-- Sección mostrada al inicializar el dashboard -->
+            <ul *ngIf="!isSearchPerformed" class="book-list">
+              <div *ngFor="let book of books | slice:0:8">
+                <li>
+                  <strong>Titulo: </strong>{{book.title}}  <br>
+                  <span> <strong>Genero: </strong>{{book.genre}}</span> <br> 
+                  <span><strong>Autor: </strong>{{book.author}}</span><br>
+                  <span> <strong>Descripcion: </strong>{{book.description}}</span><br>
+                  <img [src]="book.portada" alt="libro Portada"><br><br>
+                </li>
+              </div>
+            </ul>
+          
+            <!-- Sección mostrada al realizar una búsqueda -->
+            <div *ngIf="isSearchPerformed && showSearchResults" class="books-container">
+              <div *ngFor="let book of books | slice:0:8">
                 <strong>{{ book.title }}</strong>
                 <p>
                   <strong>Autor: </strong>{{book.author_name}} <br>
@@ -45,20 +60,6 @@
               </div>
             </div>
           </div>
-          
-
-            <ul class="book-list">
-                @for (book of books; track book.id) {
-                    <li>
-                        <strong>Titulo: </strong>{{book.title}}  <br>
-                        <span> <strong>Genero: </strong>{{book.genre}}</span> <br> 
-                        <span><strong>Autor: </strong>{{book.author}}</span><br>
-                        <span> <strong>Descripcion: </strong>{{book.description}}</span><br>
-                        <img [src]="book.portada" alt="libro Portada"><br><br>
-                        <div class="search-form">
-                        </div>
-                    </li>
-                }
-            </ul>
+                        
     </div>
 </body>
