@@ -6,9 +6,7 @@ import { RecuperarPswrdComponent } from './components/recuperar-pswrd/recuperar-
 import { AnadirLibrosComponent } from './components/anadir-libros/anadir-libros.component';
 import { ActualizarLibrosComponent } from './components/actualizar-libros/actualizar-libros.component';
 import { EliminarLibrosComponent } from './components/eliminar-libros/eliminar-libros.component';
-import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { VerificarComponent } from './components/verificar/verificar.component';
-import { adminGuard } from './auth/admin.guard';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 export const routes: Routes = [
@@ -20,7 +18,6 @@ export const routes: Routes = [
   { path: 'anadir', component: AnadirLibrosComponent },
   { path: 'actualizar', component: ActualizarLibrosComponent}, 
   { path: 'eliminar', component: EliminarLibrosComponent}, 
-  { path: 'mi-perfil', component: MiPerfilComponent },
   { path: 'verificar', component: VerificarComponent },
   {path: 'usuarios',component:AdminUsersComponent}
 ];
