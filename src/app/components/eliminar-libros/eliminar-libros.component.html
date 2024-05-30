@@ -12,12 +12,22 @@
     </header>
 </div>
 
-<div>
-    <ul>
-        @for (book of books; track book.id) {
-            <li><strong>Titulo: </strong>{{book.title}} :: <span> <strong>Genero: </strong>{{book.genre}}</span> :: <span><strong>Autor: </strong>{{book.author}}</span><br>
-            <span> <strong>Descripcion: </strong>{{book.description}}</span></li>
-            <button (click)="borrar(book.id)">Borrar</button><br><br>
-        }
-    </ul>
+<div class="books-container">
+    <div class="book">
+        <ul class="book-list">
+            @for (book of books; track book.id) {
+                <li>
+                    <strong>Titulo: </strong>{{book.title}}  <br>
+                    <span> <strong>Genero: </strong>{{book.genre}}</span> <br> 
+                    <span><strong>Autor: </strong>{{book.author}}</span><br>
+                    <span> <strong>Descripcion: </strong>{{book.description}}</span><br>
+                    <img [src]="book.portada" alt="libro Portada"><br><br>
+                    <div class="search-form">
+                        <button (click)="borrar(book.id)">Borrar</button><br><br>
+                        <button routerLink="/actualizar">Editar</button>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
 </div>

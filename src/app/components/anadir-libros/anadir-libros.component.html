@@ -32,6 +32,10 @@
             <label for="descripcion">Descripción:</label>
             <textarea class="campo-formulario" id="descripcion" name="descripcion" rows="3" placeholder="Descripcion" [(ngModel)]="book.description"></textarea>
         </div>
+        <div class="grupo-form mb-4">
+            <label for="portada">Portada:</label>
+            <input class="campo-formulario" id="portada" name="portada" placeholder="URL Portada" [(ngModel)]="book.portada"/>
+        </div>
         <button class="btn-primario" (click)="anadir()">Añadir Libro</button>
         </form>
     </div>

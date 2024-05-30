@@ -34,7 +34,7 @@
                 <button type="submit">Buscar</button>
             </form>
             <div class="books-container">
-                <div class="book" *ngFor="let book of books | slice:0:12">
+                <div class="book" *ngFor="let book of books | slice:0:8">
                     <strong>{{ book.title }}</strong>
                     <p>
                         <strong>Autor: </strong>{{book.author_name}} <br>
@@ -44,5 +44,17 @@
                 </div>
             </div>
         </div>
+        <div class="api-results">
+            <div class="books-container">
+                <div class="book" *ngFor="let book of booksFromApi">
+                    <strong>{{ book.title }}</strong>
+                    <p>
+                        <strong>Autor: </strong>{{ book.authors?.join(', ') || 'Unknown' }} <br>
+                        <strong>Edición: </strong>{{ book.edition_count }}
+                    </p>
+                    <img [src]="book.image_url" alt="{{ book.title }}">
+                </div>
+            </div>
+        </div>   
     </div>
 </body>

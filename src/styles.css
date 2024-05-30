@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 html, body{
     height: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    color: #333;
+    background-repeat: no-repeat;
+    background-size: cover; /* La imagen de fondo se ajustará para cubrir toda la pantalla */
+    background-position: center;
 }
 
 .wrapper{

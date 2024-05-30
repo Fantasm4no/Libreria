@@ -22,7 +22,8 @@ export class DashboardComponent implements OnInit{
   searchForm: FormGroup;
   usuario: any
   isAdmin = false;
-  
+  booksFromApi: any[] = [];
+
   constructor(private router: Router,private bookService: BookserviceService, private fb: FormBuilder,
     private userService: UsersService,private autetication:AutecticationService,private afAuth: AngularFireAuth, private afs: AngularFirestore){
       this.usuario = this.userService.email
@@ -42,6 +43,18 @@ export class DashboardComponent implements OnInit{
       } else {
         this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión si no está autenticado
       }
+    });
+
+    this.bookService.getBooksFromOpenLibrary().subscribe((data: any) => {
+      this.booksFromApi = data.works.map((work: any) => {
+        return {
+          title: work.title,
+          authors: work.authors?.map((author: any) => author.name),
+          edition_count: work.edition_count,
+          cover_i: work.cover_i,
+          image_url: `https://covers.openlibrary.org/b/id/${work.cover_i}-L.jpg` // Construir la URL de la imagen
+        };
+      });
     });
   }
 
