@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider,  } from 'firebase/auth';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Users } from '../domain/user';
 import { Firestore, addDoc } from '@angular/fire/firestore';
 import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+
+export interface User {
+  uid: string;
+  nombre: string;
+  email: string;
+  role: string;
+  editing?: boolean;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +48,20 @@ export class UsersService {
     return addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user));
   }
 
+<<<<<<< HEAD
+  getUsers(): Observable<User[]> {
+    return this.afs.collection<User>('users').valueChanges({ idField: 'uid' });
+  }
+
+  updateUserDetails(uid: string, user: User): Promise<void> {
+    return this.afs.collection('users').doc(uid).update(user);
+  }
+
+=======
   getUsers(){
     return getDocs(query(collection(this.firestore, 'usuarios')))
   }
+>>>>>>> 38f80fc4bd3d01f223fb4b81bd6f902deb9d3ecc
 
   deleteUsers(userId: string){
     return deleteDoc(doc(this.firestore, 'usuarios', userId));
