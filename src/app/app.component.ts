@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
 import { RouterOutlet } from '@angular/router';
+import { UsersService } from './services/users.service';
+
 
 @Component({
   selector: 'app-root',
@@ -11,4 +13,6 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'libreria';
+
+
 }
