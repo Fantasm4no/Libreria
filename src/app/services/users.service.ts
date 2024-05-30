@@ -16,6 +16,8 @@ export class UsersService {
   displayName: any
   email: any
   phtoURL: any
+  password: any
+  boolean!: boolean
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth, private toastr:ToastrService, private firestore: Firestore,private afs: AngularFirestore) { }
 
@@ -44,4 +46,7 @@ export class UsersService {
     return deleteDoc(doc(this.firestore, 'usuarios', userId));
   }
 
+  verificar(){
+    this.boolean= true
+  }
 }

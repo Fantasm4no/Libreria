@@ -42,6 +42,7 @@ export class LoginComponent {
       if(user.user?.emailVerified){
         this.usersService.email = user.user.email
         this.usersService.displayName = user.user.displayName
+        this.usersService.password = password
         this.router.navigate(['dashboard'])
       }else{
         this.router.navigate(['/verificar'])

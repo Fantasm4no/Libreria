@@ -19,11 +19,14 @@ export class MiPerfilComponent implements OnInit {
   displayName: string;
   photoURL: string;
   email: string;
+  psswd:string
+  boolean: any
 
   constructor(private userService: UsersService) {
     this.displayName = this.userService.displayName;
     this.photoURL = this.userService.phtoURL;
     this.email = this.userService.email;
+    this.psswd = this.userService.password
   }
 
   ngOnInit(){
@@ -52,7 +55,14 @@ export class MiPerfilComponent implements OnInit {
   }
 
   anadir(){
-    this.userService.addUsers(this.user);
+      this.userService.addUsers(this.user)
+        .then(() => {
+          console.log('Usuario agregado correctamente a Cloud Firestore');
+        })
+        .catch(error => {
+          console.error('Error al agregar usuario a Cloud Firestore:', error);
+        });
+        this.boolean = this.userService.verificar()
   }
 
   borrar(userId : string){
@@ -61,11 +71,6 @@ export class MiPerfilComponent implements OnInit {
     }).catch(error => {
       console.log('Error al eliminar usuario:', error);
     })
-  }
-
-  acciones(attribute: any) {
-    this.borrar(attribute);
-    this.anadir();
   }
   
 }
