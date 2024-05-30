@@ -30,7 +30,7 @@ export class MiPerfilComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.userService.getUsers().then(data => {
+    this.userService.getUserss().then(data => {
       this.users = data.docs.map((doc: any) => {
         return {
           id: doc.id,

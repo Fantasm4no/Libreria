@@ -48,7 +48,6 @@ export class UsersService {
     return addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user));
   }
 
-<<<<<<< HEAD
   getUsers(): Observable<User[]> {
     return this.afs.collection<User>('users').valueChanges({ idField: 'uid' });
   }
@@ -57,11 +56,9 @@ export class UsersService {
     return this.afs.collection('users').doc(uid).update(user);
   }
 
-=======
-  getUsers(){
+  getUserss(){
     return getDocs(query(collection(this.firestore, 'usuarios')))
   }
->>>>>>> 38f80fc4bd3d01f223fb4b81bd6f902deb9d3ecc
 
   deleteUsers(userId: string){
     return deleteDoc(doc(this.firestore, 'usuarios', userId));
