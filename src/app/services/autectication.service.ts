@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+//import { UserInterface } from '../domain/roles';
+import { Firestore } from '@angular/fire/firestore';
+import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +18,7 @@ export class AutecticationService {
   email: any
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth,
-     private toastr:ToastrService) { }
+     private toastr:ToastrService, private afs: AngularFirestore) { }
 
 
      logout() {
@@ -27,6 +34,10 @@ export class AutecticationService {
       });
     }
     
+
+    
+
+
 
 
 }

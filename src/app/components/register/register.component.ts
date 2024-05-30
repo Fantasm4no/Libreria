@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore'; // Importa AngularFirestore
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ErrorFirebaseService } from '../../services/error-firebase.service';
@@ -11,15 +12,16 @@ import { UsersService } from '../../services/users.service';
     selector: 'app-register',
     standalone: true,
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'], // Cambié 'styleUrl' a 'styleUrls'
+    styleUrls: ['./register.component.css'],
     imports: [RouterLink, ReactiveFormsModule, CommonModule]
 })
 export class RegisterComponent implements OnInit {
-  registrarUsuario: FormGroup;
+  registrarUsuario: FormGroup;   
 
   constructor(
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
+    private afs: AngularFirestore, // Inyecta AngularFirestore
     private toastr: ToastrService,
     private router: Router,
     private errorfirebase: ErrorFirebaseService,
@@ -29,7 +31,8 @@ export class RegisterComponent implements OnInit {
       nombre: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      repetirPassword: ['', Validators.required]
+      repetirPassword: ['', Validators.required],
+      role: [''] // Añade 'role' si es necesario
     });
   }
 
@@ -40,6 +43,7 @@ export class RegisterComponent implements OnInit {
     const email = this.registrarUsuario.value.email;
     const password = this.registrarUsuario.value.password;
     const repetirPassword = this.registrarUsuario.value.repetirPassword;
+    const role = this.registrarUsuario.value.role;
 
     if (password !== repetirPassword) {
       this.toastr.error('Las contraseñas no coinciden', 'Error');
@@ -52,9 +56,22 @@ export class RegisterComponent implements OnInit {
         user.updateProfile({
           displayName: nombre
         }).then(() => {
-          this.usersService.displayName = userCredential.user?.displayName
-          this.verificarCorreo();
-          console.log(userCredential.user?.displayName)
+          // Guardar los datos del usuario en Firestore
+          this.afs.collection('users').doc(user.uid).set({
+            uid: user.uid,
+            nombre: nombre,
+            email: email,
+            role: role || 'admin' // Guarda el rol si está definido, de lo contrario, 'user'
+          }).then(() => {
+            this.toastr.success('Usuario registrado y guardado en Firestore', 'Éxito');
+            this.verificarCorreo();
+          }).catch((error) => {
+            console.log(error);
+            this.toastr.error(this.errorfirebase.codeError(error.code), 'Error');
+          });
+
+          this.usersService.displayName = userCredential.user?.displayName;
+          console.log(userCredential.user?.displayName);
         }).catch((error) => {
           console.log(error);
           this.toastr.error(this.errorfirebase.codeError(error.code), 'Error');
@@ -82,4 +99,5 @@ export class RegisterComponent implements OnInit {
       });
   }
 }
+
 

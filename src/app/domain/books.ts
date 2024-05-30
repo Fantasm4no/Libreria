@@ -3,4 +3,5 @@ export class Books{
     author!: string
     genre!: string
     description!: string
+    userUid!: string
 }
