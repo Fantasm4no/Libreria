@@ -29,33 +29,36 @@
         <div class="welcome">
             <h3>Bienvenido: {{usuario}}</h3>
         </div>
-        <div >
+        <div>
             <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
-                <input formControlName="query" placeholder="Buscar libros">
-                <button type="submit">Buscar</button>
+              <input formControlName="query" placeholder="Buscar libros">
+              <button type="submit">Buscar</button>
             </form>
-            <div class="books-container">
-                <div class="book" *ngFor="let book of books | slice:0:8">
-                    <strong>{{ book.title }}</strong>
-                    <p>
-                        <strong>Autor: </strong>{{book.author_name}} <br>
-                        <strong>Edición: </strong>{{book.edition_count}}
-                    </p>
-                    <img [src]="getCoverUrl(book.cover_i)" alt="{{book.title}}">
-                </div>
+            <div *ngIf="showSearchResults" class="books-container">
+              <div class="book" *ngFor="let book of books | slice:0:8">
+                <strong>{{ book.title }}</strong>
+                <p>
+                  <strong>Autor: </strong>{{book.author_name}} <br>
+                  <strong>Edición: </strong>{{book.edition_count}}
+                </p>
+                <img [src]="getCoverUrl(book.cover_i)" alt="{{book.title}}">
+              </div>
             </div>
-        </div>
-        <div class="api-results">
-            <div class="books-container">
-                <div class="book" *ngFor="let book of booksFromApi">
-                    <strong>{{ book.title }}</strong>
-                    <p>
-                        <strong>Autor: </strong>{{ book.authors?.join(', ') || 'Unknown' }} <br>
-                        <strong>Edición: </strong>{{ book.edition_count }}
-                    </p>
-                    <img [src]="book.image_url" alt="{{ book.title }}">
-                </div>
-            </div>
-        </div>   
+          </div>
+          
+
+            <ul class="book-list">
+                @for (book of books; track book.id) {
+                    <li>
+                        <strong>Titulo: </strong>{{book.title}}  <br>
+                        <span> <strong>Genero: </strong>{{book.genre}}</span> <br> 
+                        <span><strong>Autor: </strong>{{book.author}}</span><br>
+                        <span> <strong>Descripcion: </strong>{{book.description}}</span><br>
+                        <img [src]="book.portada" alt="libro Portada"><br><br>
+                        <div class="search-form">
+                        </div>
+                    </li>
+                }
+            </ul>
     </div>
 </body>

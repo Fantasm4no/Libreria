@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit{
   usuario: any
   isAdmin = false;
   booksFromApi: any[] = [];
+  showSearchResults: boolean = false;
 
   constructor(private router: Router,private bookService: BookserviceService, private fb: FormBuilder,
     private userService: UsersService,private autetication:AutecticationService,private afAuth: AngularFireAuth, private afs: AngularFirestore){
@@ -45,6 +46,15 @@ export class DashboardComponent implements OnInit{
       }
     });
 
+    this.bookService.getBooks().then(data => {
+      this.books = data.docs.map((doc: any) => {
+        return {
+          id: doc.id,
+          ...doc.data()
+        }
+      })
+    })
+
     this.bookService.getBooksFromOpenLibrary().subscribe((data: any) => {
       this.booksFromApi = data.works.map((work: any) => {
         return {
@@ -63,6 +73,7 @@ export class DashboardComponent implements OnInit{
     this.bookService.searchBooks(query).subscribe((data: any) => {
       this.books = data.docs;
     });
+    this.showSearchResults = true;
   }
 
   getCoverUrl(cover_i: number) {
