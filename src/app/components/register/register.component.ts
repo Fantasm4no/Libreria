@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
             uid: user.uid,
             nombre: nombre,
             email: email,
-            role: role || 'admin' // Guarda el rol si está definido, de lo contrario, 'user'
+            role: role || 'users' // Guarda el rol si está definido, de lo contrario, 'user'
           }).then(() => {
             this.toastr.success('Usuario registrado y guardado en Firestore', 'Éxito');
             this.verificarCorreo();
@@ -71,6 +71,7 @@ export class RegisterComponent implements OnInit {
           });
 
           this.usersService.displayName = userCredential.user?.displayName;
+          this.usersService.password = password
           console.log(userCredential.user?.displayName);
         }).catch((error) => {
           console.log(error);

@@ -24,15 +24,16 @@ export class AutecticationService {
      logout() {
       this.afAuth.signOut().then(() => {
         console.log('Sesión cerrada correctamente');
-        // Limpiar variables de usuario
         this.user = null;
         this.email = null;
-        // Redirigir a la página de inicio de sesión u otra página deseada
-        this.router.navigate(['/login']);
+        this.toastr.success('Sesión cerrada correctamente', '¡Éxito!');
+        window.location.href = '/login';
       }).catch((error) => {
         console.error('Error al cerrar sesión:', error);
+        this.toastr.error('Hubo un error al cerrar la sesión', 'Error');
       });
     }
+    
 
     
 

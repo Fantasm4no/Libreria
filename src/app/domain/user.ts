@@ -4,4 +4,5 @@ export class Users{
     email!: string
     phone!: string
     biography!: string
+    password!: string
 }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Users } from '../domain/user';
 import { Firestore, addDoc } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
@@ -26,17 +26,19 @@ export class UsersService {
   displayName: any
   email: any
   phtoURL: any
+  password: any
+  boolean!: boolean
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private authfirebase: AngularFireAuth, private toastr:ToastrService, private firestore: Firestore,private afs: AngularFirestore) { }
 
   registrarConGoogle(){
     this.afAuth.signInWithPopup(new GoogleAuthProvider()).then((result)=>{
       console.log('Iniciar sesión con Google exitoso:', result);
-      this.router.navigate(['/dashboard'])
       this.displayName = result.user?.displayName
       this.email = result.user?.email
       this.phtoURL = result.user?.photoURL
       console.log(this.displayName, this.email, this.phtoURL)
+      this.router.navigate(['/dashboard'])
     }).catch((error) => {
       console.error('Error Inicio de sesión con Google:', error);
     });
@@ -46,6 +48,7 @@ export class UsersService {
     return addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user));
   }
 
+<<<<<<< HEAD
   getUsers(): Observable<User[]> {
     return this.afs.collection<User>('users').valueChanges({ idField: 'uid' });
   }
@@ -54,5 +57,17 @@ export class UsersService {
     return this.afs.collection('users').doc(uid).update(user);
   }
 
+=======
+  getUsers(){
+    return getDocs(query(collection(this.firestore, 'usuarios')))
+  }
+>>>>>>> 38f80fc4bd3d01f223fb4b81bd6f902deb9d3ecc
 
+  deleteUsers(userId: string){
+    return deleteDoc(doc(this.firestore, 'usuarios', userId));
+  }
+
+  verificar(){
+    this.boolean= true
+  }
 }
